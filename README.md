@@ -27,3 +27,9 @@ OpenAI Gym defines "solving" this task as getting average return of 9.7 over 100
 
 While this coding exercise is ungraded, we recommend that you try to attain an average return of at least 9.1 over 100 consecutive trials (best_avg_reward > 9.1).
 
+# my solution
+
+I try a solution base on udacity machine learning Engineer materia.
+
+After fine-tune several time, my best average reward is 9.373.
+

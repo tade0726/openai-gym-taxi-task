@@ -6,8 +6,8 @@ class Agent:
 
     def __init__(self,
                  nA=6,
-                 alpha=0.3,
-                 gamma=0.75,
+                 alpha=0.1,
+                 gamma=0.65,
                  epsilon=1):
 
         """ Initialize agent.
@@ -25,7 +25,7 @@ class Agent:
         self.nA = nA
         self.Q = defaultdict(lambda: np.zeros(self.nA))
 
-        self.method = "SM"
+        self.method = "ES"
         self.methods = {"ES", "SM", "S"}
 
     @staticmethod
