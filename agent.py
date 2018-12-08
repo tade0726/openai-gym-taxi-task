@@ -3,12 +3,7 @@ from collections import defaultdict
 
 
 class Agent:
-
-    def __init__(self,
-                 nA=6,
-                 alpha=0.1,
-                 gamma=0.65,
-                 epsilon=1):
+    def __init__(self, nA=6, alpha=0.1, gamma=0.65, epsilon=1):
 
         """ Initialize agent.
 
@@ -33,7 +28,7 @@ class Agent:
         """ updates the action-value function estimate using the most recent time step """
         return Qsa + (alpha * (reward + (gamma * Qsa_next) - Qsa))
 
-    def epsilon_greedy_probs(self, Q_s, epsilon:float):
+    def epsilon_greedy_probs(self, Q_s, epsilon: float):
         """ obtains the action probabilities corresponding to epsilon-greedy policy """
         policy_s = np.ones(self.nA) * epsilon / self.nA
         policy_s[np.argmax(Q_s)] = 1 - epsilon + (epsilon / self.nA)
@@ -75,16 +70,33 @@ class Agent:
 
         # Expected Sarsa
         if self.method == "ES":
-            self.Q[state][action] = self.update_Q(self.Q[state][action], np.dot(self.Q[next_state], policy_s), reward, self.alpha, self.gamma)
+            self.Q[state][action] = self.update_Q(
+                self.Q[state][action],
+                np.dot(self.Q[next_state], policy_s),
+                reward,
+                self.alpha,
+                self.gamma,
+            )
 
         # Sarsa max
         elif self.method == "SM":
-            self.Q[state][action] = self.update_Q(self.Q[state][action], np.max(self.Q[next_state]), reward, self.alpha, self.gamma)
+            self.Q[state][action] = self.update_Q(
+                self.Q[state][action],
+                np.max(self.Q[next_state]),
+                reward,
+                self.alpha,
+                self.gamma,
+            )
 
         # Sarsa
         elif self.method == "S":
             next_action = self.select_action(state)
-            self.Q[state][action] = self.update_Q(self.Q[state][action], self.Q[next_state][next_action],
-                                        reward, self.alpha, self.gamma)
+            self.Q[state][action] = self.update_Q(
+                self.Q[state][action],
+                self.Q[next_state][next_action],
+                reward,
+                self.alpha,
+                self.gamma,
+            )
         else:
             raise ValueError("method should be in {'ES', 'SM', 'S'}")
